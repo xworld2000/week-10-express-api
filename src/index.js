@@ -1,7 +1,7 @@
 // ./src/index.js
 
 //importing the dependencies
-const { app, startDatabase, getProducts, deleteProduct, updateProduct, createProduct} = require('./app-common.js')
+const { app, startDatabase, getProducts, deleteProduct, updateProduct, createProduct } = require('./app-common.js')
 
 
 // endpoint to return all products
@@ -17,7 +17,10 @@ app.get('/', async (req, res) => {
 app.post('/', async (apiRequest, apiResponse) => {
   const newProduct = apiRequest.body;
   await createProduct(newProduct);
-  apiResponse.send({ message: 'New product created.' });
+  apiResponse.send({
+    message: 'New product created.',
+    allProducts: await getProducts()
+  });
 });
 
 // endpoint to delete a product
@@ -36,7 +39,7 @@ app.put('/:id', async (apiRequest, apiResponse) => {
 // start the in-memory MongoDB instance first
 // https://www.mongodb.com/
 startDatabase().then(async () => {
-  await createProduct({title: 'In-memory mongo database for debugging and testing is now running!'});
+  await createProduct({ title: 'In-memory mongo database for debugging and testing is now running!' });
 
   // start the server after the database starts
   app.listen(3001, async () => {

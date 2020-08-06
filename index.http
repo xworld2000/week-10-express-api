@@ -1,0 +1,21 @@
+//test the homepage endpoint
+GET http://localhost:3001
+
+###testing 404
+
+GET http://localhost:3001/404
+
+###
+POST http://localhost:3001/
+Content-Type: application/json
+
+{
+"title": "golf pants"
+}
+###
+PUT http://localhost:3001/5f2b505d3b0b88199340f38d/
+Content-Type: application/json
+
+{
+"title": "fly shirts"
+}
